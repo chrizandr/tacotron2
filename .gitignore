@@ -1,0 +1,13 @@
+venv/*
+venn/
+
+tts_out/*
+tts_out/
+
+tts_log/*
+tts_log
+
+
+__pycache__/
+text/__pycache__/
+
