@@ -15,7 +15,7 @@ def create_hparams(hparams_string=None, verbose=False):
         dynamic_loss_scaling=True,
         fp16_run=False,
         distributed_run=False,
-        dist_backend="nccl",
+        dist_backend="mpi",
         dist_url="file://distributed.dpt",
         cudnn_enabled=True,
         cudnn_benchmark=False,

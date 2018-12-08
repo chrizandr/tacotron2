@@ -7,6 +7,8 @@ tts_out/
 tts_log/*
 tts_log
 
+logs/*
+logs/
 
 __pycache__/
 text/__pycache__/
