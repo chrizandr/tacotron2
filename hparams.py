@@ -9,13 +9,13 @@ def create_hparams(hparams_string=None, verbose=False):
         ################################
         # Experiment Parameters        #
         ################################
-        epochs=1000,
+        epochs=2000,
         iters_per_checkpoint=500,
         seed=1234,
         dynamic_loss_scaling=True,
         fp16_run=False,
         distributed_run=False,
-        dist_backend="mpi",
+        dist_backend="gloo",
         dist_url="file://distributed.dpt",
         cudnn_enabled=True,
         cudnn_benchmark=False,
@@ -76,7 +76,7 @@ def create_hparams(hparams_string=None, verbose=False):
         # Optimization Hyperparameters #
         ################################
         use_saved_learning_rate=False,
-        learning_rate=1e-3,
+        learning_rate=5e-4,
         weight_decay=1e-6,
         grad_clip_thresh=1,
         batch_size=48,

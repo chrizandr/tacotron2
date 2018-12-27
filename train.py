@@ -42,8 +42,10 @@ def init_distributed(hparams, n_gpus, rank, group_name):
     torch.cuda.set_device(rank % torch.cuda.device_count())
 
     # Initialize distributed communication
+    os.environ['MASTER_ADDR'] = '127.0.0.1'
+    os.environ['MASTER_PORT'] = '29500'
     torch.distributed.init_process_group(
-        backend=hparams.dist_backend, init_method=hparams.dist_url,
+        backend=hparams.dist_backend,
         world_size=n_gpus, rank=rank, group_name=group_name)
 
     print("Done initializing distributed")
@@ -167,7 +169,7 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
 
     torch.manual_seed(hparams.seed)
     torch.cuda.manual_seed(hparams.seed)
-
+    print("Loading model")
     model = load_model(hparams)
     learning_rate = hparams.learning_rate
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate,
@@ -175,12 +177,12 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
     if hparams.fp16_run:
         optimizer = FP16_Optimizer(
             optimizer, dynamic_loss_scale=hparams.dynamic_loss_scaling)
-
+    print("Preparing loss function.")
     criterion = Tacotron2Loss()
 
     logger = prepare_directories_and_logger(
         output_directory, log_directory, rank)
-
+    print("Loading dataset.")
     train_loader, valset, collate_fn = prepare_dataloaders(hparams)
 
     # Load checkpoint if one exists
@@ -203,6 +205,7 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
         batch_parser = model.module.parse_batch
     else:
         batch_parser = model.parse_batch
+    print("Training.")
     # ================ MAIN TRAINNIG LOOP! ===================
     for epoch in range(epoch_offset, hparams.epochs):
         print("Epoch: {}".format(epoch))
