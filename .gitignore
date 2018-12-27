@@ -19,5 +19,5 @@ logs/
 __pycache__/
 text/__pycache__/
 
-# python train.py --output_directory=tts_out_tel/ --log_directory=tts_log_tel/ -checkpoint_path=tts_out_tel/checkpoint_0
+# python train.py --output_directory=tts_out_tel/ --log_directory=tts_log_tel/ --checkpoint_path=tts_out_tel/checkpoint_0
 # python train.py --output_directory=tory=tts_log/ --checkpoint_path=tts_out/checkpoint_357500
