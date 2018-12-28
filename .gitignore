@@ -4,6 +4,12 @@ venn/
 tts_out/*
 tts_out/
 
+tts_out_tel/*
+tts_out_tel/
+
+tts_log_tel/*
+tts_log_tel
+
 tts_log/*
 tts_log
 
