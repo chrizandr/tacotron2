@@ -34,7 +34,6 @@ def shuffle_into_files(train_file, val_file, data):
     val = train[val_split::]
     train = train[0:val_split]
 
-    pdb.set_trace()
     f = open(train_file, "w")
     f.write("\n".join(train))
     f.close()
