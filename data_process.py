@@ -1,5 +1,6 @@
 import numpy as np
 import os
+import pdb
 
 
 def process_data(filename, prefix):
@@ -11,8 +12,10 @@ def process_data(filename, prefix):
         fname = data[0].strip('(').strip() + ".wav"
         fname = os.path.join(prefix, fname)
         text = data[1].strip()
-        fnames.append(fname)
-        texts.append(text)
+        sentence_size = len(text.split())
+        if sentence_size < 40:
+            fnames.append(fname)
+            texts.append(text)
     f.close()
 
     return fnames, texts
@@ -31,6 +34,7 @@ def shuffle_into_files(train_file, val_file, data):
     val = train[val_split::]
     train = train[0:val_split]
 
+    pdb.set_trace()
     f = open(train_file, "w")
     f.write("\n".join(train))
     f.close()
@@ -41,7 +45,7 @@ def shuffle_into_files(train_file, val_file, data):
 
 
 if __name__ == "__main__":
-    text_path = "/home/chris/tel_f_tts/txt.done.data"
+    text_path = "/home/chrizandr/Downloads/tel_f_tts/txt.done.data"
     prefix = "/ssd_scratch/cvit/chris/Telugu/wavs/"
     train_file = "filelists/ljs_audio_text_train_filelist.txt"
     val_file = "filelists/ljs_audio_text_val_filelist.txt"
